@@ -2,12 +2,8 @@
   <div class="home">
     <img alt="Vue logo" src="../assets/logo.png">
     <div class="wrapper">
-      <Crypto />
-      <Balance />
+      <Crypto v-bind:check-other-crypto="false" v-bind:check-main-crypto="true"/>
     </div>
-    <button>
-      Click
-    </button>
   </div>
 </template>
 
@@ -15,9 +11,8 @@
 // @ is an alias to /src
 
 import Crypto from "../components/Crypto";
-import Balance from "../components/Balance";
 export default {
   name: 'Home',
-  components: {Balance, Crypto},
+  components: {Crypto},
 }
 </script>

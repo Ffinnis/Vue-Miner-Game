@@ -2,31 +2,61 @@
     <h2>
         {{getCurrencyBalance}}$
     </h2>
-    <h2>
-        {{getBTCBalance}} BTC
-    </h2>
-    <h2>
-        {{getETHBalance}} ETH
-    </h2>
-    <div class="wrapper">
-        <label>
-            <input min="0.00001" v-model="value" type="number">
-        </label>
-        <div class="trade-wrapper">
-            <button @click="BuyBTC">
-                Купить Биткоин
-            </button>
-            <button @click="SellBTC">
-                Продать Биткоин
-            </button>
-            <button @click="BuyETH">
-                Купить Эфир
-            </button>
-            <button @click="SellETH">
-                Продать Эфир
-            </button>
+    <div v-if="checkMainCrypto" class="main-crypto">
+        <h2>
+            {{getBTCBalance}} BTC
+        </h2>
+        <h2>
+            {{getETHBalance}} ETH
+        </h2>
+        <div class="wrapper">
+            <label>
+                <input min="0.00001" v-model="value" type="number">
+            </label>
+            <div class="trade-wrapper">
+                <button @click="BuyBTC">
+                    Купить Биткоин
+                </button>
+                <button @click="SellBTC">
+                    Продать Биткоин
+                </button>
+                <button @click="BuyETH">
+                    Купить Эфир
+                </button>
+                <button @click="SellETH">
+                    Продать Эфир
+                </button>
+            </div>
         </div>
     </div>
+    <div v-if="checkOtherCrypto" class="other-crypto">
+        <h2>
+            {{getLTCBalance}} LTC
+        </h2>
+        <h2>
+            {{getXMRBalance}} Monero
+        </h2>
+        <div class="wrapper">
+            <label>
+                <input min="0.00001" v-model="value" type="number">
+            </label>
+            <div class="trade-wrapper">
+                <button @click="BuyBTC">
+                    Купить LTC
+                </button>
+                <button @click="SellBTC">
+                    Продать LTC
+                </button>
+                <button @click="BuyETH">
+                    Купить Monero
+                </button>
+                <button @click="SellETH">
+                    Продать Monero
+                </button>
+            </div>
+        </div>
+    </div>
+
 </template>
 
 <script>
@@ -36,6 +66,10 @@
             return {
                 value: 0
             }
+        },
+        props: {
+            checkMainCrypto: Boolean,
+            checkOtherCrypto: Boolean
         },
         methods: {
             BuyBTC() {
@@ -104,6 +138,18 @@
             },
             getETHBalance() {
                 return this.$store.getters.showETHBalance.toFixed(5)
+            },
+            getCurrencyLTC() {
+                return this.$store.getters.showCurrentLTC
+            },
+            getLTCBalance() {
+                return this.$store.getters.showLTCBalance.toFixed(5)
+            },
+            getCurrencyXMR() {
+                return this.$store.getters.showCurrentXMR
+            },
+            getXMRBalance() {
+                return this.$store.getters.showXMRBalance.toFixed(5)
             },
         }
     }
