@@ -41,16 +41,16 @@
                 <input min="0.00001" v-model="value" type="number">
             </label>
             <div class="trade-wrapper">
-                <button @click="BuyBTC">
+                <button @click="BuyLTC">
                     Купить LTC
                 </button>
-                <button @click="SellBTC">
+                <button @click="SellLTC">
                     Продать LTC
                 </button>
-                <button @click="BuyETH">
+                <button @click="BuyXMR">
                     Купить Monero
                 </button>
-                <button @click="SellETH">
+                <button @click="SellXMR">
                     Продать Monero
                 </button>
             </div>
@@ -92,6 +92,56 @@
                 } else {
                     this.$store.commit('updateCurrencyBalance', sum)
                     this.$store.commit('updateETHBalance', value)
+                }
+            },
+            BuyLTC() {
+                let value = parseFloat(this.value)
+                let balance = this.getCurrencyBalance
+                let sum = this.getCurrencyLTC * value
+                if( sum > balance) {
+                    alert('У вас недостаточный баланс')
+                } else {
+                    this.$store.commit('updateCurrencyBalance', sum)
+                    this.$store.commit('updateLTCBalance', value)
+                }
+            },
+            BuyXMR() {
+                let value = parseFloat(this.value)
+                let balance = this.getCurrencyBalance
+                let sum = this.getCurrencyXMR * value
+                if( sum > balance) {
+                    alert('У вас недостаточный баланс')
+                } else {
+                    this.$store.commit('updateCurrencyBalance', sum)
+                    this.$store.commit('updateXMRBalance', value)
+                }
+            },
+            SellXMR() {
+                let value = parseFloat(this.value)
+                let XMRBalance = this.getXMRBalance
+                let sum = this.getCurrencyXMR * value
+                if(XMRBalance <= 0) {
+                    alert('У вас нет лайткоинов')
+                }
+                if(XMRBalance < value) {
+                    alert('У вас недостаточно лайткоинов')
+                } else {
+                    this.$store.commit('AddBalance', sum)
+                    this.$store.commit('removeXMRBalance', value)
+                }
+            },
+            SellLTC() {
+                let value = parseFloat(this.value)
+                let LTCBalance = this.getLTCBalance
+                let sum = this.getCurrencyLTC * value
+                if(LTCBalance <= 0) {
+                    alert('У вас нет лайткоинов')
+                }
+                if(LTCBalance < value) {
+                    alert('У вас недостаточно лайткоинов')
+                } else {
+                    this.$store.commit('AddBalance', sum)
+                    this.$store.commit('removeLTCBalance', value)
                 }
             },
             SellBTC() {
