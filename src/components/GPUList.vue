@@ -30,14 +30,20 @@
                     {
                         id: 0,
                         title: 'RX 480',
-                        hash: 0,
-                        price: 400
+                        hash: 0.00001,
+                        price: 150
                     },
                     {
                         id: 1,
                         title: 'RX 580',
                         hash: 0.00002,
-                        price: 550,
+                        price: 210,
+                    },
+                    {
+                        id: 2,
+                        title: 'RX 590',
+                        hash: 0.00004,
+                        price: 265,
                     }
                 ],
                 propsObj: {}
@@ -46,7 +52,14 @@
         methods: {
             buyGpu() {
                 this.$store.commit('updateGpuList', this.propsObj)
-                this.$store.commit('addHash', this.getGpuList[this.getGpuList.length - 1].hash)
+                let price = this.propsObj.price
+                let balance = this.getBalance
+                if(balance<price) {
+                    alert('У вас недостаточно денег')
+                } else {
+                    this.$store.commit('addHash', this.getGpuList[this.getGpuList.length - 1].hash)
+                    this.$store.commit('updateCurrencyBalance', price)
+                }
             }
         },
         computed: {
@@ -55,6 +68,9 @@
             },
             getHash() {
                 return this.$store.getters.showHash.toFixed(5)
+            },
+            getBalance() {
+                return this.$store.getters.showCurrentBalance
             }
         }
     }

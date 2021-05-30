@@ -14,7 +14,7 @@
         Начать майнинг
     </button>
     <button @click="stopMining">
-        stop майнинг
+        Остановить майнинг
     </button>
 </template>
 
