@@ -5,7 +5,7 @@
                 {{gpu.title}}
             </h2>
             <p>
-                Хэш-рейт: {{gpu.hash}}
+                Хэш-рейт: {{gpu.hash}} ETH
             </p>
             <h3>
                 Цена: {{gpu.price}}$
@@ -27,14 +27,14 @@
                     {
                         id: 0,
                         title: 'RX 480',
-                        hash: 0.2,
+                        hash: 0,
                         price: 400
                     },
                     {
                         id: 1,
                         title: 'RX 580',
-                        hash: 0.3,
-                        price: 550
+                        hash: 0.00002,
+                        price: 550,
                     }
                 ],
                 propsObj: {}

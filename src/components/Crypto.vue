@@ -15,6 +15,9 @@
         <h2>
             Monero: {{getCurrencyXMR}}$
         </h2>
+        <h2>
+            DOGE: {{getCurrencyDOGE}}$
+        </h2>
         <Balance v-bind:check-other-crypto="true" v-bind:check-main-crypto="false"/>
     </div>
 </template>
@@ -35,12 +38,12 @@
             socket.onopen = () => {
                 let subRequest = {
                     "action": "SubAdd",
-                    "subs": ["0~Binance~BTC~USDT", "0~Binance~ETH~USDT", "0~Coinbase~LTC~USD", "5~CCCAGG~XMR~USD"]
+                    "subs": ["0~Binance~BTC~USDT", "0~Binance~ETH~USDT", "0~Coinbase~LTC~USD", "5~CCCAGG~XMR~USD", "5~CCCAGG~DOGE~USD"]
                 };
                 socket.send(JSON.stringify(subRequest))
             }
 
-            socket.onmessage = (msg) => {
+            socket.onmessage = async (msg) => {
                 let message = JSON.parse(msg.data)
                 if(message.FSYM === 'ETH') {
                     this.$store.commit('updateCurrencyETH', message.P)
@@ -54,7 +57,9 @@
                 if(message.FROMSYMBOL === 'XMR') {
                     this.$store.commit('updateCurrencyXMR', message.PRICE)
                 }
-                console.log()
+                if(message.FROMSYMBOL === 'DOGE') {
+                    this.$store.commit('updateCurrencyDOGE', message.PRICE)
+                }
             }
 
 
@@ -72,6 +77,9 @@
             },
             getCurrencyXMR() {
                 return this.$store.getters.showCurrentXMR
+            },
+            getCurrencyDOGE() {
+                return this.$store.getters.showCurrentDOGE
             }
         }
 

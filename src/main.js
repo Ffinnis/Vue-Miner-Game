@@ -11,10 +11,12 @@ const store = createStore({
             currencyETH: 0,
             currencyLTC: 0,
             currencyXMR: 0,
+            currencyDOGE: 0,
             BTCBalance: 0,
             ETHBalance: 0,
             LTCBalance: 0,
             XMRBalance: 0,
+            DOGEBalance: 0,
             gpuList: []
         }
     },
@@ -24,6 +26,9 @@ const store = createStore({
         },
         updateCurrencyBTC(state, currency) {
             state.currencyBTC = currency
+        },
+        updateCurrencyDOGE(state, currency) {
+            state.currencyDOGE = currency
         },
         updateCurrencyLTC(state, currency) {
             state.currencyLTC = currency
@@ -36,6 +41,12 @@ const store = createStore({
         },
         removeLTCBalance(state, num) {
             state.LTCBalance -= num
+        },
+        updateDOGEBalance(state, num) {
+            state.DOGEBalance += num
+        },
+        removeDOGEBalance(state, num) {
+            state.DOGEBalance -= num
         },
         updateXMRBalance(state, num) {
             state.XMRBalance += num
@@ -84,6 +95,9 @@ const store = createStore({
         showCurrentXMR: state => {
             return state.currencyXMR
         },
+        showCurrentDOGE: state => {
+            return state.currencyDOGE
+        },
         showBTCBalance: state => {
             return state.BTCBalance
         },
@@ -95,6 +109,9 @@ const store = createStore({
         },
         showXMRBalance: state => {
             return state.XMRBalance
+        },
+        showDOGEBalance: state => {
+            return state.DOGEBalance
         }
     }
 })
