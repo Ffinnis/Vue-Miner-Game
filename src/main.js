@@ -17,10 +17,18 @@ const store = createStore({
             LTCBalance: 0,
             XMRBalance: 0,
             DOGEBalance: 0,
-            gpuList: []
+            gpuList: [],
+            hash: 0,
+            timer: null
         }
     },
     mutations: {
+        createTimer(state, func) {
+            state.timer = setInterval(func, 1000)
+        },
+        addHash(state, odd) {
+            state.hash += odd
+        },
         updateGpuList(state, obj) {
             state.gpuList.push(obj)
         },
@@ -77,6 +85,12 @@ const store = createStore({
         },
     },
     getters: {
+        showTimer: state => {
+            return state.timer
+        },
+        showHash: state => {
+            return state.hash
+        },
         showGpuList: state => {
             return state.gpuList
         },

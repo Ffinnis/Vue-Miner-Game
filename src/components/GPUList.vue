@@ -10,9 +10,12 @@
             <h3>
                 Цена: {{gpu.price}}$
             </h3>
-            <button v-on:click="propsObj = gpu" @click="getPropsObj" class="buy-card">
+            <button v-on:click="propsObj = gpu" @click="buyGpu" class="buy-card">
                 Купить
             </button>
+            <div>
+                {{getHash}}
+            </div>
         </li>
     </ul>
 </template>
@@ -41,14 +44,18 @@
             }
         },
         methods: {
-            getPropsObj() {
+            buyGpu() {
                 this.$store.commit('updateGpuList', this.propsObj)
+                this.$store.commit('addHash', this.getGpuList[this.getGpuList.length - 1].hash)
             }
         },
         computed: {
-            getGpuLIst() {
+            getGpuList() {
                 return this.$store.getters.showGpuList
             },
+            getHash() {
+                return this.$store.getters.showHash.toFixed(5)
+            }
         }
     }
 </script>

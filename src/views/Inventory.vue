@@ -13,6 +13,9 @@
     <button @click="startMining">
         Начать майнинг
     </button>
+    <button @click="stopMining">
+        stop майнинг
+    </button>
 </template>
 
 <script>
@@ -20,7 +23,7 @@
         name: "Inventory",
         data() {
             return{
-                GpuInventory: []
+                GpuInventory: [],
             }
         },
         mounted() {
@@ -28,15 +31,25 @@
         },
         methods: {
             startMining() {
-                setInterval(() => {
-                    this.$store.commit('updateETHBalance', 0.00002)
-                }, 1000)
-            }
+                this.$store.commit('createTimer', this.addETH)
+            },
+            addETH() {
+                this.$store.commit('updateETHBalance', this.getHash)
+            },
+            stopMining() {
+                clearInterval(this.getTimer)
+            },
         },
         computed: {
             getGpuList() {
                 return this.$store.getters.showGpuList
             },
+            getHash() {
+                return this.$store.getters.showHash
+            },
+            getTimer() {
+                return this.$store.getters.showTimer
+            }
         }
     }
 </script>
