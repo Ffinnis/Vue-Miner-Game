@@ -7,6 +7,12 @@
             <p>
                 Хэш-рейт: {{gpu.hash}}
             </p>
+            <h3>
+                Цена: {{gpu.price}}$
+            </h3>
+            <button v-on:click="propsObj = gpu" @click="getPropsObj" class="buy-card">
+                Купить
+            </button>
         </li>
     </ul>
 </template>
@@ -14,21 +20,35 @@
 <script>
     export default {
         name: "GPUList",
+
         data() {
             return{
                 gpuArray: [
                     {
                         id: 0,
                         title: 'RX 480',
-                        hash: 0.2
+                        hash: 0.2,
+                        price: 400
                     },
                     {
                         id: 1,
                         title: 'RX 580',
-                        hash: 0.3
+                        hash: 0.3,
+                        price: 550
                     }
-                ]
+                ],
+                propsObj: {}
             }
+        },
+        methods: {
+            getPropsObj() {
+                this.$store.commit('updateGpuList', this.propsObj)
+            }
+        },
+        computed: {
+            getGpuLIst() {
+                return this.$store.getters.showGpuList
+            },
         }
     }
 </script>
@@ -36,8 +56,13 @@
 <style scoped>
     ul{
         padding: 0;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-gap: 10px;
     }
 li{
     list-style-type: none;
+    border: 1px solid #2c3e50;
+    padding: 10px 20px;
 }
 </style>

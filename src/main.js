@@ -14,10 +14,14 @@ const store = createStore({
             BTCBalance: 0,
             ETHBalance: 0,
             LTCBalance: 0,
-            XMRBalance: 0
+            XMRBalance: 0,
+            gpuList: []
         }
     },
     mutations: {
+        updateGpuList(state, obj) {
+            state.gpuList.push(obj)
+        },
         updateCurrencyBTC(state, currency) {
             state.currencyBTC = currency
         },
@@ -62,6 +66,9 @@ const store = createStore({
         },
     },
     getters: {
+        showGpuList: state => {
+            return state.gpuList
+        },
         showCurrentBalance: state => {
             return state.currentBalance
         },
