@@ -4,6 +4,7 @@
     <router-link to="/other">Other Crypto</router-link> |
     <router-link to="/shop">Shop</router-link> |
     <router-link to="/inventory">Inventory</router-link> |
+    <router-link to="/bank">Bank</router-link> |
     <router-link to="/about">About</router-link>
   </div>
   <router-view/>

@@ -19,10 +19,15 @@ const store = createStore({
             DOGEBalance: 0,
             gpuList: [],
             hash: 0,
-            timer: null
+            timer: null,
+            bankBalance: 0,
+            timerBank: null
         }
     },
     mutations: {
+        bankTimer(state, func) {
+            state.timerBank = setInterval(func, 60000)
+        },
         createTimer(state, func) {
             state.timer = setInterval(func, 1000)
         },
@@ -83,10 +88,22 @@ const store = createStore({
         removeEthBalance(state, num) {
             state.ETHBalance -= num
         },
+        addBankBalance(state, num) {
+            state.bankBalance += num
+        },
+        removeBankBalance(state, num) {
+            state.bankBalance -= num
+        }
     },
     getters: {
+        showBankBalance: state => {
+            return state.bankBalance
+        },
         showTimer: state => {
             return state.timer
+        },
+        showBankTimer: state => {
+            return state.timerBank
         },
         showHash: state => {
             return state.hash
