@@ -1,18 +1,17 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+    <b-button @click="addCrypto('ETH')">Нажми</b-button>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from "@/components/HelloWorld.vue";
-
+import { createNewSocket } from "@/utils/socketHandler";
 export default {
   name: "Home",
-  components: {
-    HelloWorld,
+  methods: {
+    addCrypto(name) {
+      return createNewSocket(name);
+    },
   },
 };
 </script>
