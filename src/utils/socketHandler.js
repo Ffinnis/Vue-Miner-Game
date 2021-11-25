@@ -15,7 +15,6 @@ socket.onopen = () => {
 
 socket.onmessage = (event) => {
   const message = JSON.parse(event.data);
-  console.log(message);
   let crypto = message.symbol_id.replaceAll("COINBASE_SPOT_", "");
   crypto = crypto.replaceAll("_USD", "");
   return store.dispatch("createCrypto", {
@@ -40,7 +39,7 @@ const createNewSocket = (cryptoName) => {
   data.subscribe_filter_asset_id = store.state.crypto.subscribe_filter_asset_id;
   data.subscribe_filter_symbol_id =
     store.state.crypto.subscribe_filter_symbol_id;
-  socket.send(JSON.stringify(data));
+  return socket.send(JSON.stringify(data));
 };
 
 export { socket, createNewSocket };

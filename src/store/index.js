@@ -10,7 +10,7 @@ export default new Vuex.Store({
       subscribe_filter_symbol_id: ["COINBASE_SPOT_BTC_USD$"],
       cryptoList: [
         {
-          name: "BTC",
+          crypto: "BTC",
           price: null,
         },
       ],

@@ -1,17 +1,20 @@
 <template>
   <div class="home">
-    <b-button @click="addCrypto('ETH')">Нажми</b-button>
+    <crypto-list />
+    <create-crypto v-if="this.$store.state.crypto.cryptoList.length < 2" />
   </div>
 </template>
 
 <script>
-import { createNewSocket } from "@/utils/socketHandler";
+import { socket } from "@/utils/socketHandler";
 export default {
   name: "Home",
-  methods: {
-    addCrypto(name) {
-      return createNewSocket(name);
-    },
+  created() {
+    return socket;
+  },
+  components: {
+    CryptoList: () => import("@/components/CryptoListComponents/CryptoList"),
+    CreateCrypto: () => import("@/components/CreateCrypto"),
   },
 };
 </script>
