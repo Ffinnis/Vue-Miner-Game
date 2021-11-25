@@ -5,6 +5,7 @@
       :key="idx + crypto.crypto"
       :name="crypto.crypto"
       :price="Number(crypto.price)"
+      :index="idx"
     />
   </b-row>
 </template>

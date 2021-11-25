@@ -30,10 +30,18 @@ export default new Vuex.Store({
       );
       return state.crypto.cryptoList.push(payload);
     },
+    deleteCrypto(state, idx) {
+      state.crypto.subscribe_filter_asset_id.splice(idx, 1);
+      state.crypto.subscribe_filter_symbol_id.splice(idx, 1);
+      return state.crypto.cryptoList.splice(idx, 1);
+    },
   },
   actions: {
-    async createCrypto(context, payload) {
-      context.commit("createCrypto", payload);
+    createCrypto(context, payload) {
+      return context.commit("createCrypto", payload);
+    },
+    deleteCrypto(context, idx) {
+      return context.commit("deleteCrypto", idx);
     },
   },
   modules: {},

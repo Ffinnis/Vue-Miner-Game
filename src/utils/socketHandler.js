@@ -42,4 +42,12 @@ const createNewSocket = (cryptoName) => {
   return socket.send(JSON.stringify(data));
 };
 
-export { socket, createNewSocket };
+const deleteSocket = (idx) => {
+  store.dispatch("deleteCrypto", idx);
+  data.subscribe_filter_asset_id = store.state.crypto.subscribe_filter_asset_id;
+  data.subscribe_filter_symbol_id =
+    store.state.crypto.subscribe_filter_symbol_id;
+  return socket.send(JSON.stringify(data));
+};
+
+export { socket, createNewSocket, deleteSocket };
