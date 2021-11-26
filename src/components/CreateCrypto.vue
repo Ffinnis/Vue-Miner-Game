@@ -1,5 +1,8 @@
 <template>
-  <b-form @submit="createNewCrypto($event)">
+  <b-form
+    @submit="createNewCrypto($event)"
+    class="row justify-content-center flex-column align-items-center"
+  >
     <b-form-group
       label="Введите короткое название криптовалюты"
       label-for="input__create-crypto"
@@ -12,7 +15,7 @@
         v-model="cryptoName"
       />
     </b-form-group>
-    <b-button type="submit">Добавить криптовалюту</b-button>
+    <b-button variant="primary" type="submit">Добавить криптовалюту</b-button>
   </b-form>
 </template>
 

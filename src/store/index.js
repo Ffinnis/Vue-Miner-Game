@@ -33,7 +33,9 @@ export default new Vuex.Store({
     deleteCrypto(state, idx) {
       state.crypto.subscribe_filter_asset_id.splice(idx, 1);
       state.crypto.subscribe_filter_symbol_id.splice(idx, 1);
-      return state.crypto.cryptoList.splice(idx, 1);
+      setTimeout(() => {
+        return state.crypto.cryptoList.splice(idx, 1);
+      }, 0);
     },
   },
   actions: {

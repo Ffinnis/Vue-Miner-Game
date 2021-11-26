@@ -1,5 +1,5 @@
 <template>
-  <b-row>
+  <b-row cols="2" style="gap: 1rem">
     <CryptoListItem
       v-for="(crypto, idx) in getCryptoList"
       :key="idx + crypto.crypto"

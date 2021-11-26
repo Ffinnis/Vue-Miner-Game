@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div class="home page">
     <crypto-list />
     <create-crypto v-if="this.$store.state.crypto.cryptoList.length < 2" />
   </div>
