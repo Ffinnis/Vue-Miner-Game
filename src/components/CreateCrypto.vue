@@ -1,7 +1,7 @@
 <template>
   <b-form
     @submit="createNewCrypto($event)"
-    class="row justify-content-center flex-column align-items-center"
+    class="row justify-content-center flex-column align-items-center mt-5"
   >
     <b-form-group
       label="Введите короткое название криптовалюты"

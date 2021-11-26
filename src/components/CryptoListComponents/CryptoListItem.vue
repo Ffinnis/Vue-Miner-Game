@@ -1,16 +1,27 @@
 <template>
-  <b-col class="crypto-list-item" sm>
-    <div class="item-name">
-      <h3>{{ name }}</h3>
-    </div>
-    <div class="price-container">
-      <b-spinner v-if="!price" />
-      <div class="price" v-else>
-        Price: <span ref="price-ref">{{ price }}</span
-        >$
-      </div>
-    </div>
-    <b-icon @click="deleteCrypto" icon="trash" style="cursor: pointer" />
+  <b-col class="crypto-list-item pt-2 pb-2" sm>
+    <b-row class="main justify-content-between align-items-center">
+      <b-col>
+        <div class="item-name">
+          <h3>{{ name }}</h3>
+        </div>
+        <div class="price-container mt-3 mb-3">
+          <b-spinner v-if="!price" />
+          <div class="price" v-else>
+            Price: <span ref="price-ref">{{ price }}</span
+            >$
+          </div>
+        </div>
+      </b-col>
+      <b-col>
+        <crypto-list-item-trade-button :name="name" type="Buy" :amount="4" />
+        <crypto-list-item-trade-button :name="name" type="Sell" :amount="4" />
+      </b-col>
+      <b-col class="flex-grow-0">
+        <b-icon @click="deleteCrypto" icon="trash" style="cursor: pointer" />
+      </b-col>
+    </b-row>
+
     <b-modal id="bv-error-modal" ref="bv-error-modal" hide-footer hide-header>
       <div class="d-block text-center">
         <h3>Error! You can't delete last crypto</h3>
@@ -26,6 +37,9 @@
 import { deleteSocket } from "@/utils/socketHandler";
 export default {
   name: "CryptoListItem",
+  components: {
+    CryptoListItemTradeButton: () => import("./CryptoListItemTradeButton"),
+  },
   props: {
     name: {
       type: String,
@@ -37,6 +51,7 @@ export default {
     },
     index: {
       type: Number,
+      required: true,
     },
   },
   methods: {
