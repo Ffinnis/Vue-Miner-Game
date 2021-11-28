@@ -1,8 +1,13 @@
+import { shopModule } from "./shopModule";
+
 export const userModule = {
   state: {
-    balance: 10000000,
+    balance: 10000,
     cryptoList: [],
+    videoList: [],
   },
+
+  //TODO I need to refactor this
   mutations: {
     buyCrypto(state, payload) {
       const idx = state.cryptoList.findIndex(
@@ -37,6 +42,25 @@ export const userModule = {
       }
       return alert("This crypto doesn't exist");
     },
+    buyGPU(state, payload) {
+      if (state.balance < payload.price) {
+        return alert("You have not enough money");
+      }
+      state.balance -= payload.price;
+      return state.videoList.push(payload);
+    },
+    mining(state, hashRate) {
+      let ETHIndex = state.cryptoList.findIndex((item) => item.name === "ETH");
+      if (ETHIndex !== -1) {
+        return (state.cryptoList[ETHIndex].amount += hashRate);
+      }
+      state.cryptoList.push({
+        name: "ETH",
+        amount: Number(0),
+      });
+      ETHIndex = state.cryptoList.findIndex((item) => item.name === "ETH");
+      return (state.cryptoList[ETHIndex].amount += hashRate);
+    },
   },
   actions: {
     buyCrypto({ commit, rootState }, payload) {
@@ -51,5 +75,8 @@ export const userModule = {
       ).price;
       return commit("sellCrypto", payload);
     },
+  },
+  modules: {
+    shop: shopModule,
   },
 };

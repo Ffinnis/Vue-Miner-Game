@@ -1,5 +1,6 @@
 <template>
   <b-button
+    :variant="type === 'Buy' ? 'outline-primary' : 'outline-danger'"
     @click="
       type === 'Buy'
         ? buyCrypto({ name: name, amount: amount })

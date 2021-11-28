@@ -1,7 +1,7 @@
 <template>
   <b-col class="crypto-list-item pt-2 pb-2" sm>
-    <b-row class="main justify-content-between align-items-center">
-      <b-col>
+    <b-container fluid class="main justify-content-between align-items-center">
+      <div>
         <div class="item-name">
           <h3>{{ name }}</h3>
         </div>
@@ -12,15 +12,32 @@
             >$
           </div>
         </div>
-      </b-col>
-      <b-col>
-        <crypto-list-item-trade-button :name="name" type="Buy" :amount="4" />
-        <crypto-list-item-trade-button :name="name" type="Sell" :amount="4" />
-      </b-col>
-      <b-col class="flex-grow-0">
+      </div>
+      <div class="d-flex align-items-center">
+        <b-col>
+          <b-input
+            placeholder="Enter value"
+            type="number"
+            v-model="cryptoValue"
+          />
+        </b-col>
+        <div class="d-flex flex-column" style="gap: 20px 0">
+          <crypto-list-item-trade-button
+            :name="name"
+            type="Buy"
+            :amount="Number(cryptoValue)"
+          />
+          <crypto-list-item-trade-button
+            :name="name"
+            type="Sell"
+            :amount="Number(cryptoValue)"
+          />
+        </div>
+      </div>
+      <div class="flex-grow-0">
         <b-icon @click="deleteCrypto" icon="trash" style="cursor: pointer" />
-      </b-col>
-    </b-row>
+      </div>
+    </b-container>
 
     <b-modal id="bv-error-modal" ref="bv-error-modal" hide-footer hide-header>
       <div class="d-block text-center">
@@ -39,6 +56,11 @@ export default {
   name: "CryptoListItem",
   components: {
     CryptoListItemTradeButton: () => import("./CryptoListItemTradeButton"),
+  },
+  data() {
+    return {
+      cryptoValue: 0,
+    };
   },
   props: {
     name: {
@@ -80,5 +102,8 @@ export default {
 <style scoped>
 .crypto-list-item {
   border: 1px solid #cac0c0;
+}
+.main {
+  display: flex;
 }
 </style>
