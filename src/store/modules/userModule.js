@@ -52,14 +52,14 @@ export const userModule = {
     mining(state, hashRate) {
       let ETHIndex = state.cryptoList.findIndex((item) => item.name === "ETH");
       if (ETHIndex !== -1) {
-        return (state.cryptoList[ETHIndex].amount += hashRate);
+        return (state.cryptoList[ETHIndex].amount += Number(hashRate));
       }
       state.cryptoList.push({
         name: "ETH",
         amount: Number(0),
       });
       ETHIndex = state.cryptoList.findIndex((item) => item.name === "ETH");
-      return (state.cryptoList[ETHIndex].amount += hashRate);
+      return (state.cryptoList[ETHIndex].amount += Number(hashRate));
     },
   },
   actions: {
