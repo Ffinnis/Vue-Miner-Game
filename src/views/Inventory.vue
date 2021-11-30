@@ -7,12 +7,18 @@
         </b-card>
       </b-col>
     </b-row>
-    <b-button @click="startMining" variant="outline-success"
-      >Начать майнить</b-button
-    >
-    <b-button @click="stopMining" variant="outline-danger"
-      >Закончить майнить</b-button
-    >
+    <b-row class="align-items-center mt-5">
+      <b-col>
+        <b-button @click="startMining" variant="outline-success"
+          >Начать майнить</b-button
+        >
+      </b-col>
+      <b-col cols="2">
+        <b-button @click="stopMining" variant="outline-danger"
+          >Закончить майнить</b-button
+        >
+      </b-col>
+    </b-row>
   </div>
 </template>
 
