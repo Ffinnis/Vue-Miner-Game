@@ -1,18 +1,20 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <div class="wrapper">
-      <Crypto v-bind:check-other-crypto="false" v-bind:check-main-crypto="true"/>
-    </div>
+  <div class="home page">
+    <crypto-list />
+    <create-crypto v-if="this.$store.state.crypto.cryptoList.length < 2" />
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-
-import Crypto from "../components/Crypto";
+import { socket } from "@/utils/socketHandler";
 export default {
-  name: 'Home',
-  components: {Crypto},
-}
+  name: "Home",
+  created() {
+    return socket;
+  },
+  components: {
+    CryptoList: () => import("@/components/CryptoListComponents/CryptoList"),
+    CreateCrypto: () => import("@/components/CreateCrypto"),
+  },
+};
 </script>

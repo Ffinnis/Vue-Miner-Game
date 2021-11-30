@@ -1,69 +1,60 @@
 <template>
-    <h1>
-        Inventory
-    </h1>
-    <ul>
-        <li v-for="gpu in GpuInventory" :key="gpu.id">
-            {{gpu.title}}
-            <p>
-                Hash: {{gpu.hash}} ETH
-            </p>
-        </li>
-    </ul>
-    <button @click="startMining">
-        Начать майнинг
-    </button>
-    <button @click="stopMining">
-        Остановить майнинг
-    </button>
+  <div class="inventory page">
+    <b-row cols="5" style="gap: 15px 0">
+      <b-col v-for="(item, idx) in inventoryList" :key="idx + item.name">
+        <b-card :title="item.name">
+          <b-card-text> {{ item.hashRate }} </b-card-text>
+        </b-card>
+      </b-col>
+    </b-row>
+    <b-row class="align-items-center mt-5">
+      <b-col>
+        <b-button @click="startMining" variant="outline-success"
+          >Начать майнить</b-button
+        >
+      </b-col>
+      <b-col cols="2">
+        <b-button @click="stopMining" variant="outline-danger"
+          >Закончить майнить</b-button
+        >
+      </b-col>
+    </b-row>
+  </div>
 </template>
 
 <script>
-    export default {
-        name: "Inventory",
-        data() {
-            return{
-                GpuInventory: [],
-            }
-        },
-        mounted() {
-            this.GpuInventory = this.getGpuList
-        },
-        methods: {
-            startMining() {
-                this.$store.commit('createTimer', this.addETH)
-            },
-            addETH() {
-                this.$store.commit('updateETHBalance', this.getHash)
-            },
-            stopMining() {
-                clearInterval(this.getTimer)
-            },
-        },
-        computed: {
-            getGpuList() {
-                return this.$store.getters.showGpuList
-            },
-            getHash() {
-                return this.$store.getters.showHash
-            },
-            getTimer() {
-                return this.$store.getters.showTimer
-            }
-        }
-    }
+export default {
+  name: "Inventory",
+  computed: {
+    inventoryList: function () {
+      return this.$store.state.user.videoList;
+    },
+    allHash: function () {
+      return this.inventoryList
+        .map((item) => item.hashRate)
+        .reduce((prev, current) => {
+          return prev + current;
+        })
+        .toFixed(5);
+    },
+  },
+  data() {
+    return {
+      loop: null,
+    };
+  },
+  methods: {
+    startMining() {
+      const miningLoop = setInterval(() => {
+        return this.$store.commit("mining", this.allHash);
+      }, 1000);
+      return (this.loop = miningLoop);
+    },
+    stopMining() {
+      return clearTimeout(this.loop);
+    },
+  },
+};
 </script>
 
-<style scoped>
-li{
-    list-style-type: none;
-    padding: 10px 20px;
-    border: 1px solid #2c3e50;
-}
-    ul{
-        padding: 0;
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr;
-        grid-gap: 30px 10px;
-    }
-</style>
+<style scoped></style>

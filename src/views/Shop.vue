@@ -1,18 +1,22 @@
 <template>
-    <h1>
-        PC Shop
-    </h1>
-   <GPUList />
+  <div class="shop page">
+    <h1>Shop</h1>
+    <products-list />
+  </div>
 </template>
 
 <script>
-    import GPUList from "../components/GPUList";
-    export default {
-        name: "Shop",
-        components: {GPUList},
-    }
+export default {
+  name: "Shop",
+  components: {
+    ProductsList: () => import("@/components/ShopComponents/ProductsList"),
+  },
+  data() {
+    return {
+      productList: this.$store.state.user.shop.productList,
+    };
+  },
+};
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>
