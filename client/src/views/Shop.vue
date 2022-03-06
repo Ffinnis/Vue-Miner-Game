@@ -11,10 +11,8 @@ export default {
   components: {
     ProductsList: () => import("@/components/ShopComponents/ProductsList"),
   },
-  data() {
-    return {
-      productList: this.$store.state.user.shop.productList,
-    };
+  async created() {
+    await this.$store.dispatch("setProductList");
   },
 };
 </script>

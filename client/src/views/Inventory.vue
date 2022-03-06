@@ -35,7 +35,7 @@ export default {
     },
     allHash: function () {
       return this.inventoryList
-        .map((item) => item.hashRate)
+        .map((item) => item.hash)
         .reduce((prev, current) => {
           return prev + current;
         })
