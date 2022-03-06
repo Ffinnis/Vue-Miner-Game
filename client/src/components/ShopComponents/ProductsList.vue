@@ -1,5 +1,10 @@
 <template>
   <b-list-group>
+    <b-spinner
+      variant="primary"
+      label="Spinning"
+      v-show="!productList.length"
+    />
     <b-list-group-item
       class="product-item"
       v-for="item in productList"
@@ -10,7 +15,7 @@
           <h3 class="product-title">{{ item.name }}</h3>
         </b-col>
         <b-col>
-          <p>{{ item.hashRate }}h</p>
+          <p>{{ item.hash }}Mh/s</p>
         </b-col>
         <b-col class="d-flex justify-content-end">
           <products-list-buy-button :id="item.id" :price="item.price" />
@@ -23,10 +28,10 @@
 <script>
 export default {
   name: "ProductsList",
-  data() {
-    return {
-      productList: this.$store.state.user.shop.productList,
-    };
+  computed: {
+    productList() {
+      return this.$store.state.user.shop.productList;
+    },
   },
   components: {
     ProductsListBuyButton: () => import("./ProductsListBuyButton"),

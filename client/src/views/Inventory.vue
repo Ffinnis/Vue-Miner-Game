@@ -1,5 +1,6 @@
 <template>
   <div class="inventory page">
+    <h1 v-show="inventoryList.length === 0">You haven't any gpu</h1>
     <b-row cols="5" style="gap: 15px 0">
       <b-col v-for="(item, idx) in inventoryList" :key="idx + item.name">
         <b-card :title="item.name">
@@ -7,14 +8,17 @@
         </b-card>
       </b-col>
     </b-row>
-    <b-row class="align-items-center mt-5">
+    <b-row cols="1" class="align-items-center mt-5">
       <b-col>
-        <b-button @click="startMining" variant="outline-success"
+        <b-button
+          v-show="!isMining"
+          @click="startMining"
+          variant="outline-success"
           >Начать майнить</b-button
         >
       </b-col>
-      <b-col cols="2">
-        <b-button @click="stopMining" variant="outline-danger"
+      <b-col>
+        <b-button v-show="isMining" @click="stopMining" variant="outline-danger"
           >Закончить майнить</b-button
         >
       </b-col>
@@ -31,7 +35,7 @@ export default {
     },
     allHash: function () {
       return this.inventoryList
-        .map((item) => item.hashRate)
+        .map((item) => item.hash)
         .reduce((prev, current) => {
           return prev + current;
         })
@@ -41,6 +45,7 @@ export default {
   data() {
     return {
       loop: null,
+      isMining: false,
     };
   },
   methods: {
@@ -48,9 +53,11 @@ export default {
       const miningLoop = setInterval(() => {
         return this.$store.commit("mining", this.allHash);
       }, 1000);
+      this.isMining = true;
       return (this.loop = miningLoop);
     },
     stopMining() {
+      this.isMining = false;
       return clearTimeout(this.loop);
     },
   },

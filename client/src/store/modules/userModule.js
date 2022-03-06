@@ -47,6 +47,7 @@ export const userModule = {
         return alert("You have not enough money");
       }
       state.balance -= payload.price;
+      payload.hash = payload.hash / 100000;
       return state.videoList.push(payload);
     },
     mining(state, hashRate) {
